@@ -61,7 +61,7 @@ public:
     int GetPlayState();
 
     //设置音轨
-    bool setTrack(int trackIndex);
+    bool SetTrack(int trackIndex);
 
     //销毁
     void Release();
@@ -73,6 +73,7 @@ signals:
 private:
     libvlc_instance_t     *m_pVLC_Inst;
     libvlc_media_player_t *m_pVLC_Player;
+    libvlc_event_manager_t *m_eventManager;
 };
 
 #endif // VLCPLAYER_H

@@ -1,4 +1,5 @@
 #include <vlcplayer.h>
+#include <iostream>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -10,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     m_vplayer = new VLCPlayer(this);
-
     m_vplayer->Play("/home/yjp/下载/1.mp4", static_cast<uint32_t>(ui->videoFrame->winId()));
 }
 
