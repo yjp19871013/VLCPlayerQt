@@ -20,19 +20,24 @@ static void handleEvents(const libvlc_event_t *event, void *userData)
 
         // media player 时间改变
         case libvlc_MediaPlayerTimeChanged: {
-              int64_t time = event->u.media_player_time_changed.new_time;
-              emit obj->playCurrentTime(time/1000);
-              break;
-          }
-          default:
-              break;
-      }
+            int64_t time = event->u.media_player_time_changed.new_time;
+            emit obj->playCurrentTime(time/1000);
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 VLCPlayer::VLCPlayer(QObject *parent) : QObject(parent)
 {
        m_pVLC_Player = nullptr;
        m_pVLC_Inst = libvlc_new(0, nullptr);
+}
+
+VLCPlayer::~VLCPlayer()
+{
+    this->Release();
 }
 
 int VLCPlayer::Play(QString filename, uint32_t hwnd)
@@ -238,6 +243,7 @@ void VLCPlayer::Release()
         m_pVLC_Player = nullptr;
 
     }
+
     if (m_pVLC_Inst)
     {
         libvlc_release(m_pVLC_Inst);

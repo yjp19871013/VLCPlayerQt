@@ -10,6 +10,7 @@ class VLCPlayer : public QObject
 
 public:
     explicit VLCPlayer(QObject *parent = nullptr);
+    ~VLCPlayer();
 
     // 播放
     int Play(QString filename,  uint32_t hwnd = 0);
@@ -68,8 +69,6 @@ public:
 signals:
     void playAllTime(int64_t sec);
     void playCurrentTime(int64_t sec);
-
-public slots:
 
 private:
         libvlc_instance_t     *m_pVLC_Inst;

@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     m_vplayer->Stop();
+    m_vplayer->Release();
     delete m_vplayer;
 
     delete ui;
