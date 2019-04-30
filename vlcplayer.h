@@ -71,9 +71,8 @@ signals:
     void playCurrentTime(int64_t sec);
 
 private:
-        libvlc_instance_t     *m_pVLC_Inst;
-        libvlc_media_player_t *m_pVLC_Player;
-        libvlc_event_manager_t *m_pVLC_eMg;
+    libvlc_instance_t     *m_pVLC_Inst;
+    libvlc_media_player_t *m_pVLC_Player;
 };
 
 #endif // VLCPLAYER_H

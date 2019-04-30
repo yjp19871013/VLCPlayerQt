@@ -31,8 +31,8 @@ static void handleEvents(const libvlc_event_t *event, void *userData)
 
 VLCPlayer::VLCPlayer(QObject *parent) : QObject(parent)
 {
-       m_pVLC_Player = nullptr;
-       m_pVLC_Inst = libvlc_new(0, nullptr);
+    m_pVLC_Player = nullptr;
+    m_pVLC_Inst = libvlc_new(0, nullptr);
 }
 
 VLCPlayer::~VLCPlayer()
@@ -58,12 +58,15 @@ int VLCPlayer::Play(QString filename, uint32_t hwnd)
         m_pVLC_Player = libvlc_media_player_new_from_media(m);
         if (m_pVLC_Player)
         {
-            m_pVLC_eMg = libvlc_media_player_event_manager(m_pVLC_Player);
-            libvlc_event_attach(m_pVLC_eMg, libvlc_MediaPlayerPositionChanged, handleEvents, this);
-            libvlc_event_attach(m_pVLC_eMg, libvlc_MediaPlayerTimeChanged, handleEvents, this);
-            libvlc_event_attach(m_pVLC_eMg, libvlc_MediaPlayerPlaying, handleEvents, this);
+            libvlc_event_manager_t * eventManager = libvlc_media_player_event_manager(m_pVLC_Player);
+            libvlc_event_attach(eventManager, libvlc_MediaPlayerPositionChanged, handleEvents, this);
+            libvlc_event_attach(eventManager, libvlc_MediaPlayerTimeChanged, handleEvents, this);
+            libvlc_event_attach(eventManager, libvlc_MediaPlayerPlaying, handleEvents, this);
             if (hwnd != 0)
+            {
                 libvlc_media_player_set_xwindow(m_pVLC_Player, hwnd);
+            }
+
             this->Play();
         }
 
@@ -93,7 +96,7 @@ int VLCPlayer::Play()
 {
     if (m_pVLC_Player)
     {
-       return  libvlc_media_player_play(m_pVLC_Player);
+       return libvlc_media_player_play(m_pVLC_Player);
     }
 
     return -1;
